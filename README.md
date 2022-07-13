@@ -1,6 +1,9 @@
-# LifeSource
+# LifeSource: Final project for EC6060 Software Engineering
+### [ An application that give solutions for organizing Blood Donation Campaigns in a better procedure ]
 
-### Project for EC6060 Software Engineering
+
+### 
+
 
 #### Collaborators: 
 	2018/E/012	ARSHATH J.M.
