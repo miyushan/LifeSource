@@ -8,6 +8,8 @@ git commit -m "YOUR MESSAGE"				//complete the changing process by giving a comm
 git branch 						//check existing branches
 git branch NEWBRANCH					//add a new branch
 git checkout ANYBRANCH					//change branch
+git branch -d ANYBRANCH					//delete a local branch
+git push origin --delete ANYBRANCH			//delete a remote branch
 
 
 ***steps to follow when you want to grab the work in different branch and share it to main branch
@@ -20,3 +22,10 @@ git merge ANYBRANCH					//copy a branch to main branch
 	git pull					//grab updated remote repo
 git push						//push to remote repo from main branch
 git push origin ANYBRANCH				//push to remote repo from different branch
+
+
+// delete branch locally
+
+
+// delete branch remotely
+git push origin --delete remoteBranchName
