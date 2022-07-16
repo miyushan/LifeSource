@@ -22,10 +22,3 @@ git merge ANYBRANCH					//copy a branch to main branch
 	git pull					//grab updated remote repo
 git push						//push to remote repo from main branch
 git push origin ANYBRANCH				//push to remote repo from different branch
-
-
-// delete branch locally
-
-
-// delete branch remotely
-git push origin --delete remoteBranchName
