@@ -1,0 +1,24 @@
+***steps to follow for add a change to local repo
+git status						//check the status of a branch
+git add .						//add all files to the changes
+git commit -m "YOUR MESSAGE"				//complete the changing process by giving a comment
+
+
+***branch commands
+git branch 						//check existing branches
+git branch NEWBRANCH					//add a new branch
+git checkout ANYBRANCH					//change branch
+git branch -d ANYBRANCH					//delete a local branch
+git push origin --delete ANYBRANCH			//delete a remote branch
+
+
+***steps to follow when you want to grab the work in different branch and share it to main branch
+git checkout main					//go to main branch
+git merge ANYBRANCH					//copy a branch to main branch
+
+
+***updating the remote repo
+	(consider: if you haven't grap the updated remote repo data, you should grab that before doing a push)
+	git pull					//grab updated remote repo
+git push						//push to remote repo from main branch
+git push origin ANYBRANCH				//push to remote repo from different branch
