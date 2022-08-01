@@ -5,10 +5,7 @@ const image = { uri: "https://reactjs.org/logo-og.png" };
 
 const App = () => (
   <View style={styles.container}>
-    <Text style={styles.text}>Inside</Text>
-    <Image style={styles.logo}
-      source={require('@expo/snack-static/react-native-logo.png')}
-    />
+    <Text style={styles.text}>Inside is here</Text>
   </View>
 );
 
@@ -22,7 +19,7 @@ const styles = StyleSheet.create({
     justifyContent: "center"
   },
   text: {
-    color: "white",
+    color: "black",
     fontSize: 42,
     lineHeight: 84,
     fontWeight: "bold",
