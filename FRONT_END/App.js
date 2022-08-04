@@ -1,31 +1,22 @@
-import React from "react";
-import { ImageBackground, StyleSheet, Text, View } from "react-native";
+import 'react-native-gesture-handler';
+import * as React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import SplashScreen from './app/src/screens/SplashScreen';
+import WelcomeScreen from './app/src/screens/WelcomeScreen';
+import SignInScreen from './app/src/screens/SignInScreen';
+import SignUpScreen from './app/src/screens/SignUpScreen';
 
-const image = { uri: "https://reactjs.org/logo-og.png" };
-
-const App = () => (
-  <View style={styles.container}>
-    <Text style={styles.text}>Inside is here</Text>
-  </View>
-);
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    background: "linear-gradient(#e66465, #9198e5)",
-  },
-  logo: {
-    flex: 1,
-    justifyContent: "center"
-  },
-  text: {
-    color: "black",
-    fontSize: 42,
-    lineHeight: 84,
-    fontWeight: "bold",
-    textAlign: "center",
-    backgroundColor: "#000000c0"
-  }
-});
-
-export default App;
+const Stack = createStackNavigator();
+export default function App() {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator screenOptions={{ header: () => null }}>
+        <Stack.Screen name="Splash" component={SplashScreen} />
+        <Stack.Screen name="Welcome" component={WelcomeScreen} />
+        <Stack.Screen name="SignIn" component={SignInScreen} />
+        <Stack.Screen name="SignUp" component={SignUpScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+}
