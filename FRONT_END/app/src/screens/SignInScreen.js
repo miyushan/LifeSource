@@ -2,6 +2,7 @@ import 'react-native-gesture-handler';
 import React from 'react';
 import { SafeAreaView, View, Text, TextInput, Image } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import Icon3 from 'react-native-vector-icons/FontAwesome';
 import COLORS from '../consts/color';
 import STYLES from '../styles/index';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
@@ -30,13 +31,22 @@ const SignInScreen = ({ navigation }) => {
 
                 <View style={{ marginTop: 20 }}>
                     <View style={STYLES.inputContainer}>
-                        <Icon
-                            name="mail-outline"
+                        <Icon3
+                            name="id-card-o"
                             color={COLORS.light}
                             size={20}
                             style={STYLES.inputIcon}
                         />
-                        <TextInput placeholder="Email" style={STYLES.input} />
+                        <TextInput placeholder="NIC Number" style={STYLES.input} />
+                    </View>
+                    <View style={STYLES.inputContainer}>
+                        <Icon
+                            name="person-pin"
+                            color={COLORS.light}
+                            size={20}
+                            style={STYLES.inputIcon}
+                        />
+                        <TextInput placeholder="Username" style={STYLES.input} />
                     </View>
                     <View style={STYLES.inputContainer}>
                         <Icon
