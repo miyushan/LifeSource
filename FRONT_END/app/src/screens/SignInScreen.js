@@ -35,7 +35,7 @@ const SignInScreen = ({ navigation }) => {
                             name="id-card-o"
                             color={COLORS.light}
                             size={20}
-                            style={STYLES.inputIcon}
+                            style={STYLES.inputIcon_usual}
                         />
                         <TextInput placeholder="NIC Number" style={STYLES.input} />
                     </View>
@@ -44,7 +44,7 @@ const SignInScreen = ({ navigation }) => {
                             name="person-pin"
                             color={COLORS.light}
                             size={20}
-                            style={STYLES.inputIcon}
+                            style={STYLES.inputIcon_usual}
                         />
                         <TextInput placeholder="Username" style={STYLES.input} />
                     </View>
@@ -53,7 +53,7 @@ const SignInScreen = ({ navigation }) => {
                             name="lock-outline"
                             color={COLORS.light}
                             size={20}
-                            style={STYLES.inputIcon}
+                            style={STYLES.inputIcon_usual}
                         />
                         <TextInput
                             placeholder="Password"

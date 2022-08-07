@@ -24,15 +24,13 @@ const STYLES = StyleSheet.create({
         marginTop: 14,
         // position: 'absolute'
     },
-    inputIcon: {
-        usual: {
-            marginTop: 5,
-            position: 'absolute'
-        },
-        blood: {
-            marginTop: 14,
-            position: 'absolute'
-        }
+    inputIcon_usual: {
+        marginTop: 5,
+        position: 'absolute'
+    },
+    inputIcon_blood: {
+        marginTop: 14,
+        position: 'absolute'
     },
     btn_primary: {
         justifyContent: 'center',

@@ -1,7 +1,7 @@
 import 'react-native-gesture-handler';
 import React, { useEffect, useState } from 'react';
 import { SafeAreaView, View, Text, TextInput, Image, Button } from 'react-native';
-import axios from 'axios';
+// import axios from 'axios';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import DropDownPicker from 'react-native-dropdown-picker';
 
@@ -14,13 +14,24 @@ import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 
 const SignUpScreen = ({ navigation }) => {
 
+    const [userName, setUserName] = useState('');
+    const [fullName, setFullName] = useState('');
+    const [dateOfBirth, setDateOfBirth] = useState('');
+    const [weight, setWeight] = useState('');
+    const [healthCondition, setHealthCondition] = useState('');
+    const [bloodGroup, setBloodGroup] = useState('');
+    const [city, setCity] = useState('');
+    const [district, setDistrict] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
+
+    // user confirmation
     const [users, setUsers] = useState([]);
     const [isPrevUser, setIsPrevUser] = useState(false);
-    const [branch, setBranch] = useState('');
 
+    //date picker
     const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
-
-
     const showDatePicker = () => {
         setDatePickerVisibility(true);
     };
@@ -28,11 +39,11 @@ const SignUpScreen = ({ navigation }) => {
         setDatePickerVisibility(false);
     };
     const handleConfirm = (date) => {
-        console.warn("A date has been picked: ", date);
+        // console.warn("A date has been picked: ", date);
         hideDatePicker();
     };
 
-
+    // dropdown for choose blood group
     const [open, setOpen] = useState(false);
     const [value, setValue] = useState('BPos');
     const [items, setItems] = useState([
@@ -50,21 +61,9 @@ const SignUpScreen = ({ navigation }) => {
     //     axios.get('http://localhost:8000/api/users')
     //         .then(res => {
     //             setUsers(res.data);
-    //             console.log(res.data);
     //         })
-
-    //     try {
-    //         users.forEach(user => {
-
-    //             if (NIC_num === user.nic && password === user.password) {
-    //                 setIsPrevUser(true);
-    //             }
-
-    //         })
-    //     } catch (e) {
-    //         alert('No Account Exists!');
-    //     }
-    // }, [users]);
+    //         .catch(err => console.log(err));
+    // }, []);
 
     return (
         <SafeAreaView style={{ paddingHorizontal: 20, flex: 1, backgroundColor: COLORS.white }}>
@@ -94,7 +93,7 @@ const SignUpScreen = ({ navigation }) => {
                             name="person-pin"
                             color={COLORS.light}
                             size={20}
-                            style={STYLES.inputIcon.usual}
+                            style={STYLES.inputIcon_usual}
                         />
                         <TextInput placeholder="Username" style={STYLES.input} />
                     </View>
@@ -103,18 +102,21 @@ const SignUpScreen = ({ navigation }) => {
                             name="person-outline"
                             color={COLORS.light}
                             size={20}
-                            style={STYLES.inputIcon.usual}
+                            style={STYLES.inputIcon_usual}
                         />
                         <TextInput placeholder="Full Name" style={STYLES.input} />
                     </View>
                     <View style={STYLES.inputContainer}>
-                        <Icon
-                            name="date-range"
-                            color={COLORS.light}
-                            size={20}
-                            style={STYLES.inputIcon.blood}
-                        />
-                        <Button onPress={showDatePicker} title="Date of Birth" style={STYLES.formLabel}></Button>
+                        <View>
+                            <Icon
+                                name="date-range"
+                                color={COLORS.light}
+                                size={20}
+                                style={STYLES.inputIcon_blood}
+                            />
+                            <Text style={STYLES.formLabel}>Blood Group</Text>
+                        </View>
+                        <Button onPress={showDatePicker} title="Date of Birth"></Button>
                         <DateTimePickerModal
                             isVisible={isDatePickerVisible}
                             mode="date"
@@ -135,16 +137,16 @@ const SignUpScreen = ({ navigation }) => {
                             name="weight"
                             color={COLORS.light}
                             size={20}
-                            style={STYLES.inputIcon.usual}
+                            style={STYLES.inputIcon_usual}
                         />
-                        <TextInput placeholder="Weight" style={STYLES.input} />
+                        <TextInput placeholder="Weight (Kg)" style={STYLES.input} />
                     </View>
                     <View style={STYLES.inputContainer}>
                         <Icon2
                             name="heart-multiple-outline"
                             color={COLORS.light}
                             size={20}
-                            style={STYLES.inputIcon.usual}
+                            style={STYLES.inputIcon_usual}
                         />
                         <TextInput placeholder="Health Condition" style={STYLES.input} />
                     </View>
@@ -154,7 +156,7 @@ const SignUpScreen = ({ navigation }) => {
                                 name="blood-bag"
                                 color={COLORS.light}
                                 size={20}
-                                style={STYLES.inputIcon.blood}
+                                style={STYLES.inputIcon_blood}
                             />
                             <Text style={STYLES.formLabel}>Blood Group</Text>
                         </View>
@@ -176,6 +178,7 @@ const SignUpScreen = ({ navigation }) => {
                                     fontSize: 18,
                                     backgroundColor: COLORS.primary
                                 }}
+                                listMode="SCROLLVIEW"
                             />
                         </View>
                     </View>
@@ -184,16 +187,16 @@ const SignUpScreen = ({ navigation }) => {
                             name="hospital-box-outline"
                             color={COLORS.light}
                             size={20}
-                            style={STYLES.inputIcon.usual}
+                            style={STYLES.inputIcon_usual}
                         />
-                        <TextInput placeholder="Region" style={STYLES.input} />
+                        <TextInput placeholder="City" style={STYLES.input} />
                     </View>
                     <View style={STYLES.inputContainer}>
                         <Icon3
                             name="location-outline"
                             color={COLORS.light}
                             size={20}
-                            style={STYLES.inputIcon.usual}
+                            style={STYLES.inputIcon_usual}
                         />
                         <TextInput placeholder="District" style={STYLES.input} />
                     </View>
@@ -203,7 +206,7 @@ const SignUpScreen = ({ navigation }) => {
                             name="mail-outline"
                             color={COLORS.light}
                             size={20}
-                            style={STYLES.inputIcon.usual}
+                            style={STYLES.inputIcon_usual}
                         />
                         <TextInput placeholder="Email" style={STYLES.input} />
                     </View>
@@ -212,7 +215,7 @@ const SignUpScreen = ({ navigation }) => {
                             name="lock-outline"
                             color={COLORS.light}
                             size={20}
-                            style={STYLES.inputIcon.usual}
+                            style={STYLES.inputIcon_usual}
                         />
                         <TextInput
                             placeholder="Password"
