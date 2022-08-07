@@ -1,7 +1,10 @@
 import 'react-native-gesture-handler';
 import React, { useEffect, useState } from 'react';
-import { SafeAreaView, View, Text, TextInput, Image } from 'react-native';
+import { SafeAreaView, View, Text, TextInput, Image, Button } from 'react-native';
 import axios from 'axios';
+import DateTimePickerModal from "react-native-modal-datetime-picker";
+import DropDownPicker from 'react-native-dropdown-picker';
+
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Icon2 from 'react-native-vector-icons/MaterialCommunityIcons';
 import Icon3 from 'react-native-vector-icons/Ionicons';
@@ -15,25 +18,53 @@ const SignUpScreen = ({ navigation }) => {
     const [isPrevUser, setIsPrevUser] = useState(false);
     const [branch, setBranch] = useState('');
 
-    useEffect(() => {
-        axios.get('http://localhost:8000/api/users')
-            .then(res => {
-                setUsers(res.data);
-                console.log(res.data);
-            })
+    const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
 
-        try {
-            users.forEach(user => {
 
-                if (NIC_num === user.nic && password === user.password) {
-                    setIsPrevUser(true);
-                }
+    const showDatePicker = () => {
+        setDatePickerVisibility(true);
+    };
+    const hideDatePicker = () => {
+        setDatePickerVisibility(false);
+    };
+    const handleConfirm = (date) => {
+        console.warn("A date has been picked: ", date);
+        hideDatePicker();
+    };
 
-            })
-        } catch (e) {
-            alert('No Account Exists!');
-        }
-    }, [users]);
+
+    const [open, setOpen] = useState(false);
+    const [value, setValue] = useState('BPos');
+    const [items, setItems] = useState([
+        { label: 'B+', value: 'BPos' },
+        { label: 'B-', value: 'BNeg' },
+        { label: 'A+', value: 'APos' },
+        { label: 'A-', value: 'ANeg' },
+        { label: 'O+', value: 'OPos' },
+        { label: 'O-', value: 'ONeg' },
+        { label: 'AB+', value: 'ABPos' },
+        { label: 'AB-', value: 'ABNeg' },
+    ]);
+
+    // useEffect(() => {
+    //     axios.get('http://localhost:8000/api/users')
+    //         .then(res => {
+    //             setUsers(res.data);
+    //             console.log(res.data);
+    //         })
+
+    //     try {
+    //         users.forEach(user => {
+
+    //             if (NIC_num === user.nic && password === user.password) {
+    //                 setIsPrevUser(true);
+    //             }
+
+    //         })
+    //     } catch (e) {
+    //         alert('No Account Exists!');
+    //     }
+    // }, [users]);
 
     return (
         <SafeAreaView style={{ paddingHorizontal: 20, flex: 1, backgroundColor: COLORS.white }}>
@@ -63,7 +94,7 @@ const SignUpScreen = ({ navigation }) => {
                             name="person-pin"
                             color={COLORS.light}
                             size={20}
-                            style={STYLES.inputIcon}
+                            style={STYLES.inputIcon.usual}
                         />
                         <TextInput placeholder="Username" style={STYLES.input} />
                     </View>
@@ -72,7 +103,7 @@ const SignUpScreen = ({ navigation }) => {
                             name="person-outline"
                             color={COLORS.light}
                             size={20}
-                            style={STYLES.inputIcon}
+                            style={STYLES.inputIcon.usual}
                         />
                         <TextInput placeholder="Full Name" style={STYLES.input} />
                     </View>
@@ -81,16 +112,30 @@ const SignUpScreen = ({ navigation }) => {
                             name="date-range"
                             color={COLORS.light}
                             size={20}
-                            style={STYLES.inputIcon}
+                            style={STYLES.inputIcon.blood}
                         />
-                        <TextInput placeholder="Date of Birth" style={STYLES.input} />
+                        <Button onPress={showDatePicker} title="Date of Birth" style={STYLES.formLabel}></Button>
+                        <DateTimePickerModal
+                            isVisible={isDatePickerVisible}
+                            mode="date"
+                            onConfirm={handleConfirm}
+                            onCancel={hideDatePicker}
+                            style={{
+                                backgroundColor: COLORS.primary,
+                                // height: 50,
+                                // borderRadius: 5,
+                                // justifyContent: 'center',
+                                // alignItems: 'center',
+                                // marginTop: 50,
+                            }}
+                        />
                     </View>
                     <View style={STYLES.inputContainer}>
                         <Icon2
                             name="weight"
                             color={COLORS.light}
                             size={20}
-                            style={STYLES.inputIcon}
+                            style={STYLES.inputIcon.usual}
                         />
                         <TextInput placeholder="Weight" style={STYLES.input} />
                     </View>
@@ -99,25 +144,47 @@ const SignUpScreen = ({ navigation }) => {
                             name="heart-multiple-outline"
                             color={COLORS.light}
                             size={20}
-                            style={STYLES.inputIcon}
+                            style={STYLES.inputIcon.usual}
                         />
                         <TextInput placeholder="Health Condition" style={STYLES.input} />
                     </View>
                     <View style={STYLES.inputContainer}>
-                        <Icon2
-                            name="blood-bag"
-                            color={COLORS.light}
-                            size={20}
-                            style={STYLES.inputIcon}
-                        />
-                        <TextInput placeholder="Blood Group" style={STYLES.input} />
+                        <View>
+                            <Icon2
+                                name="blood-bag"
+                                color={COLORS.light}
+                                size={20}
+                                style={STYLES.inputIcon.blood}
+                            />
+                            <Text style={STYLES.formLabel}>Blood Group</Text>
+                        </View>
+                        <View style={{ marginLeft: 20 }}>
+                            <DropDownPicker
+                                open={open}
+                                value={value}
+                                items={items}
+                                setOpen={setOpen}
+                                setValue={setValue}
+                                setItems={setItems}
+                                style={{
+                                    width: '40%',
+                                    color: COLORS.light,
+                                    // paddingLeft: 0,
+                                    borderColor: COLORS.light,
+                                    borderBottomWidth: 1,
+                                    flex: 1,
+                                    fontSize: 18,
+                                    backgroundColor: COLORS.primary
+                                }}
+                            />
+                        </View>
                     </View>
                     <View style={STYLES.inputContainer}>
                         <Icon2
                             name="hospital-box-outline"
                             color={COLORS.light}
                             size={20}
-                            style={STYLES.inputIcon}
+                            style={STYLES.inputIcon.usual}
                         />
                         <TextInput placeholder="Region" style={STYLES.input} />
                     </View>
@@ -126,7 +193,7 @@ const SignUpScreen = ({ navigation }) => {
                             name="location-outline"
                             color={COLORS.light}
                             size={20}
-                            style={STYLES.inputIcon}
+                            style={STYLES.inputIcon.usual}
                         />
                         <TextInput placeholder="District" style={STYLES.input} />
                     </View>
@@ -136,7 +203,7 @@ const SignUpScreen = ({ navigation }) => {
                             name="mail-outline"
                             color={COLORS.light}
                             size={20}
-                            style={STYLES.inputIcon}
+                            style={STYLES.inputIcon.usual}
                         />
                         <TextInput placeholder="Email" style={STYLES.input} />
                     </View>
@@ -145,7 +212,7 @@ const SignUpScreen = ({ navigation }) => {
                             name="lock-outline"
                             color={COLORS.light}
                             size={20}
-                            style={STYLES.inputIcon}
+                            style={STYLES.inputIcon.usual}
                         />
                         <TextInput
                             placeholder="Password"

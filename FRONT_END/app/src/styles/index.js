@@ -15,9 +15,24 @@ const STYLES = StyleSheet.create({
         flex: 1,
         fontSize: 18,
     },
+    formLabel: {
+        color: COLORS.light,
+        paddingLeft: 30,
+        borderColor: COLORS.light,
+        flex: 1,
+        fontSize: 18,
+        marginTop: 14,
+        // position: 'absolute'
+    },
     inputIcon: {
-        marginTop: 5,
-        position: 'absolute'
+        usual: {
+            marginTop: 5,
+            position: 'absolute'
+        },
+        blood: {
+            marginTop: 14,
+            position: 'absolute'
+        }
     },
     btn_primary: {
         justifyContent: 'center',
