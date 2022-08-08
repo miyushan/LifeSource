@@ -61,25 +61,23 @@ const SignUpScreen = ({ navigation }) => {
 
 
     useEffect(() => {
-        const url = 'http://10.0.2.2:8000/api/users';
-        const fetchUsers = async () => {
-            try {
-                // setIsLoading(true);
-                const response = await axios.get(url);
-                if (response.status === 200) {
-                    console.log(response.data);
-                    setUsers(response);
-                    setIsLoading(false);
-                    return;
-                } else {
-                    throw new Error("Failed to fetch users");
-                }
-            } catch (error) {
-                console.log(`Error: `, error.message);
-            }
+        //         axios.get('http://localhost:8000/api/users')
+        //             .then(res => {
+        //                 setUsers(res.data);
+        //             })
+        //             .catch(err => console.log(err));
+
+        //         check
+        const fetchData = async () => {
+            const result = await axios(
+                'http://localhost:8000/api/users',
+            );
+
+            console.log(result);
+            setUsers(result);
         };
-        fetchUsers();
-        return () => source.cancel("Data fetching cancelled");
+
+        fetchData();
     }, []);
 
     return (
