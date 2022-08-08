@@ -1,7 +1,7 @@
 import 'react-native-gesture-handler';
 import React, { useEffect, useState } from 'react';
 import { SafeAreaView, View, Text, TextInput, Image, Button } from 'react-native';
-// import axios from 'axios';
+import axios from 'axios';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import DropDownPicker from 'react-native-dropdown-picker';
 
@@ -57,13 +57,30 @@ const SignUpScreen = ({ navigation }) => {
         { label: 'AB-', value: 'ABNeg' },
     ]);
 
-    // useEffect(() => {
-    //     axios.get('http://localhost:8000/api/users')
-    //         .then(res => {
-    //             setUsers(res.data);
-    //         })
-    //         .catch(err => console.log(err));
-    // }, []);
+
+
+
+    useEffect(() => {
+        const url = 'http://10.0.2.2:8000/api/users';
+        const fetchUsers = async () => {
+            try {
+                // setIsLoading(true);
+                const response = await axios.get(url);
+                if (response.status === 200) {
+                    console.log(response.data);
+                    setUsers(response);
+                    setIsLoading(false);
+                    return;
+                } else {
+                    throw new Error("Failed to fetch users");
+                }
+            } catch (error) {
+                console.log(`Error: `, error.message);
+            }
+        };
+        fetchUsers();
+        return () => source.cancel("Data fetching cancelled");
+    }, []);
 
     return (
         <SafeAreaView style={{ paddingHorizontal: 20, flex: 1, backgroundColor: COLORS.white }}>
@@ -114,9 +131,9 @@ const SignUpScreen = ({ navigation }) => {
                                 size={20}
                                 style={STYLES.inputIcon_blood}
                             />
-                            <Text style={STYLES.formLabel}>Blood Group</Text>
+                            <Text style={STYLES.formLabel}>Date of Birth</Text>
                         </View>
-                        <Button onPress={showDatePicker} title="Date of Birth"></Button>
+                        <Button onPress={showDatePicker} title="Select"></Button>
                         <DateTimePickerModal
                             isVisible={isDatePickerVisible}
                             mode="date"
