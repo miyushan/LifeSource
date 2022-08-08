@@ -7,7 +7,8 @@ import DropDownPicker from 'react-native-dropdown-picker';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Icon2 from 'react-native-vector-icons/MaterialCommunityIcons';
-import Icon3 from 'react-native-vector-icons/Ionicons';
+import Icon3 from 'react-native-vector-icons/FontAwesome';
+import Icon4 from 'react-native-vector-icons/Ionicons';
 import COLORS from '../consts/color';
 import STYLES from '../styles/index';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
@@ -61,23 +62,24 @@ const SignUpScreen = ({ navigation }) => {
 
 
     useEffect(() => {
-        //         axios.get('http://localhost:8000/api/users')
-        //             .then(res => {
-        //                 setUsers(res.data);
-        //             })
-        //             .catch(err => console.log(err));
 
-        //         check
-        const fetchData = async () => {
-            const result = await axios(
-                'http://localhost:8000/api/users',
-            );
 
-            console.log(result);
-            setUsers(result);
-        };
+        console.log('start fetching');
 
-        fetchData();
+        axios.get('https://localhost:8000/api/users', {
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+            }
+        })
+            .then(res => {
+                setUsers(res.data);
+            }).catch(err => {
+                console.log(err);
+            });
+
+        console.log('start2 fetching');
+
     }, []);
 
     return (
@@ -148,13 +150,22 @@ const SignUpScreen = ({ navigation }) => {
                         />
                     </View>
                     <View style={STYLES.inputContainer}>
+                        <Icon3
+                            name="id-card-o"
+                            color={COLORS.light}
+                            size={20}
+                            style={STYLES.inputIcon_usual}
+                        />
+                        <TextInput placeholder="NIC Number" style={STYLES.input} keyboardType="numeric" />
+                    </View>
+                    <View style={STYLES.inputContainer}>
                         <Icon2
                             name="weight"
                             color={COLORS.light}
                             size={20}
                             style={STYLES.inputIcon_usual}
                         />
-                        <TextInput placeholder="Weight (Kg)" style={STYLES.input} />
+                        <TextInput placeholder="Weight (Kg)" style={STYLES.input} keyboardType="numeric" />
                     </View>
                     <View style={STYLES.inputContainer}>
                         <Icon2
@@ -207,7 +218,7 @@ const SignUpScreen = ({ navigation }) => {
                         <TextInput placeholder="City" style={STYLES.input} />
                     </View>
                     <View style={STYLES.inputContainer}>
-                        <Icon3
+                        <Icon4
                             name="location-outline"
                             color={COLORS.light}
                             size={20}

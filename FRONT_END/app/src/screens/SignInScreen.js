@@ -37,7 +37,7 @@ const SignInScreen = ({ navigation }) => {
                             size={20}
                             style={STYLES.inputIcon_usual}
                         />
-                        <TextInput placeholder="NIC Number" style={STYLES.input} />
+                        <TextInput placeholder="NIC Number" style={STYLES.input} keyboardType="numeric" />
                     </View>
                     <View style={STYLES.inputContainer}>
                         <Icon
