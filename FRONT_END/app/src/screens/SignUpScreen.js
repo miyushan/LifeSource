@@ -57,13 +57,25 @@ const SignUpScreen = ({ navigation }) => {
         { label: 'AB-', value: 'ABNeg' },
     ]);
 
-    // useEffect(() => {
-    //     axios.get('http://localhost:8000/api/users')
-    //         .then(res => {
-    //             setUsers(res.data);
-    //         })
-    //         .catch(err => console.log(err));
-    // }, []);
+    useEffect(() => {
+//         axios.get('http://localhost:8000/api/users')
+//             .then(res => {
+//                 setUsers(res.data);
+//             })
+//             .catch(err => console.log(err));
+        
+//         check
+        const fetchData = async () => {
+          const result = await axios(
+            'http://localhost:8000/api/users',
+          );
+            
+          console.log(result);
+          setUsers(result);
+        };
+
+        fetchData();
+    }, []);
 
     return (
         <SafeAreaView style={{ paddingHorizontal: 20, flex: 1, backgroundColor: COLORS.white }}>
