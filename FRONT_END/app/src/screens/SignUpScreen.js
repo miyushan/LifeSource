@@ -12,6 +12,8 @@ import Icon4 from 'react-native-vector-icons/Ionicons';
 import COLORS from '../consts/color';
 import STYLES from '../styles/index';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
+import MainButton from '../components/mainButton';
+import Header from '../components/header';
 
 const SignUpScreen = ({ navigation }) => {
 
@@ -85,15 +87,9 @@ const SignUpScreen = ({ navigation }) => {
     return (
         <SafeAreaView style={{ paddingHorizontal: 20, flex: 1, backgroundColor: COLORS.white }}>
             <ScrollView showsVerticalScrollIndicator={false}>
-                <View style={{ flexDirection: 'row', marginTop: 40 }}>
-                    <Text style={{ fontWeight: 'bold', fontSize: 22, color: COLORS.dark }}>
-                        Life
-                    </Text>
-                    <Text
-                        style={{ fontWeight: 'bold', fontSize: 22, color: COLORS.primary }}>
-                        Source
-                    </Text>
-                </View>
+
+                <Header />
+
                 <View style={{ marginTop: 70 }}>
                     <Text style={{ fontSize: 27, fontWeight: 'bold', color: COLORS.dark }}>
                         Welcome Back,
@@ -251,44 +247,11 @@ const SignUpScreen = ({ navigation }) => {
                     </View>
 
 
-                    <View style={STYLES.btnPrimary}>
-                        <Text style={{ color: '#fff', fontWeight: 'bold', fontSize: 18 }}>
-                            Sign Up
-                        </Text>
-                    </View>
-                    <View style={{
-                        marginVertical: 20,
-                        flexDirection: 'row',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                    }}>
-                        <View style={STYLES.line}></View>
-                        <Text style={{ marginHorizontal: 5, fontWeight: 'bold' }}>OR</Text>
-                        <View style={STYLES.line}></View>
-                    </View>
-                    <View style={{
-                        flexDirection: 'row',
-                        justifyContent: 'space-between',
-                    }}>
-                        <View style={STYLES.btnSecondary}>
-                            <Text style={{ fontWeight: 'bold', fontSize: 16 }}>
-                                Sign up with
-                            </Text>
-                            <Image
-                                style={STYLES.btnImage}
-                                source={require('../assets/facebook.png')}
-                            />
-                        </View>
-                        <View style={{ width: 10 }}></View>
-                        <View style={STYLES.btnSecondary}>
-                            <Text style={{ fontWeight: 'bold', fontSize: 16 }}>
-                                Sign up with
-                            </Text>
-                            <Image
-                                style={STYLES.btnImage}
-                                source={require('../assets/google.png')}
-                            />
-                        </View>
+                    <View>
+                        <MainButton style={{ color: '#fff', fontWeight: 'bold', fontSize: 18 }}
+                            onPress={() => { navigation.navigate('SignIn') }}
+                            title="Sign Up"
+                        />
                     </View>
                 </View>
 
