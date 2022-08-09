@@ -1,12 +1,12 @@
 const request = require("supertest");
 const {userController} = require("../controllers/userController");
-
+const app = require('../app');
 
 
 describe("DB CRUD Operations", () => {
     test("GET all users details", () => {
         return request(userController)
-            .get("/getUsers")
+            .get('/')
             .expect("Content-Type", /json/)
             .expect(200)
             .then((response) => {
@@ -28,5 +28,3 @@ describe("DB CRUD Operations", () => {
     });
 
 });
-
-
