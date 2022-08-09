@@ -1,5 +1,5 @@
 const request = require("supertest");
-const userController = require("../controllers/userController");
+const {userController} = require("../controllers/userController");
 
 describe("DB CRUD Operations", () => {
     test("GET all users details", () => {
