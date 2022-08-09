@@ -1,8 +1,9 @@
 import 'react-native-gesture-handler';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { SafeAreaView, View, Text, TextInput, Image, Button } from 'react-native';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import DropDownPicker from 'react-native-dropdown-picker';
+import axios from 'axios';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Icon2 from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -14,13 +15,22 @@ import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import MainButton from '../components/mainButton';
 import Header from '../components/header';
 
+import { UserContext } from '../context/userContext';
+
 const SignUpScreen = ({ navigation }) => {
+
+    useEffect(() => { }, [goBack])
+
+    const { users } = useContext(UserContext);
 
     const [userName, setUserName] = useState('');
     const [fullName, setFullName] = useState('');
+    const [NIC, setNIC] = useState();
     const [dateOfBirth, setDateOfBirth] = useState('');
     const [weight, setWeight] = useState('');
+    const [address, setAddress] = useState('');
     const [healthCondition, setHealthCondition] = useState('');
+    const [mobileNumber, setMobileNumber] = useState('');
     const [bloodGroup, setBloodGroup] = useState('');
     const [city, setCity] = useState('');
     const [district, setDistrict] = useState('');
@@ -29,7 +39,6 @@ const SignUpScreen = ({ navigation }) => {
 
 
     // user confirmation
-    const [users, setUsers] = useState([]);
     const [isPrevUser, setIsPrevUser] = useState(false);
 
     //date picker
@@ -59,20 +68,53 @@ const SignUpScreen = ({ navigation }) => {
         { label: 'AB-', value: 'ABNeg' },
     ]);
 
+    // dropdown for choose health condition
+    const [openH, setOpenH] = useState(false);
+    const [valueH, setValueH] = useState('good');
+    const [itemsH, setItemsH] = useState([
+        { label: 'Good', value: 'good' },
+        { label: 'Fine', value: 'fine' },
+        { label: 'Bad', value: 'bad' },
+    ]);
 
+    const [goBack, setGoBack] = useState(false);
 
+    const checkNewUser = () => {
+        let isNewNumber = true;
+        console.log(users['users']);
 
-    useEffect(() => {
-
-        fetch('https://localhost:8000/api/users')
-            .then((response) => response.json())
-            .then((json) => {
-                return json.movies;
+        try {
+            users['users'].forEach(user => {
+                if (NIC === user.NIC) {
+                    isNewNumber = false;
+                }
             })
-            .catch((error) => {
-                console.error(error);
-            });
-    }, []);
+
+            if (isNewNumber) {
+                navigation.navigate('SignIn')
+                // axios.post('http://192.168.8.134:8000/api/users', {
+                //     contactNumber: contactNumber,
+                //     name: branchName,
+                //     address: address,
+                // })
+                //     .then(() => {
+                //         alert('New Branch is Added Successfully!');
+                //         setContactNumber('');
+                //         setBranchName('');
+                //         setAddress('');
+                //     });
+            } else {
+                console.warn('User already exist');
+            }
+
+        } catch (e) {
+            console.warn('No data found');
+        }
+        // console.warn('pass 3');
+
+
+
+    };
 
     return (
         <SafeAreaView style={{ paddingHorizontal: 20, flex: 1, backgroundColor: COLORS.white }}>
@@ -98,7 +140,7 @@ const SignUpScreen = ({ navigation }) => {
                             size={20}
                             style={STYLES.inputIcon_usual}
                         />
-                        <TextInput placeholder="Username" style={STYLES.input} />
+                        <TextInput placeholder="Username" style={STYLES.input} onChangeText={newText => setUserName(newText)} defaultValue={userName} />
                     </View>
                     <View style={STYLES.inputContainer}>
                         <Icon
@@ -107,7 +149,7 @@ const SignUpScreen = ({ navigation }) => {
                             size={20}
                             style={STYLES.inputIcon_usual}
                         />
-                        <TextInput placeholder="Full Name" style={STYLES.input} />
+                        <TextInput placeholder="Full Name" style={STYLES.input} onChangeText={newText => setFullName(newText)} defaultValue={fullName} />
                     </View>
                     <View style={STYLES.inputContainer}>
                         <View>
@@ -117,7 +159,7 @@ const SignUpScreen = ({ navigation }) => {
                                 size={20}
                                 style={STYLES.inputIcon_blood}
                             />
-                            <Text style={STYLES.formLabel}>Date of Birth</Text>
+                            <Text style={STYLES.formLabel}>Date of Birth   </Text>
                         </View>
                         <Button onPress={showDatePicker} title="Select"></Button>
                         <DateTimePickerModal
@@ -134,33 +176,6 @@ const SignUpScreen = ({ navigation }) => {
                                 // marginTop: 50,
                             }}
                         />
-                    </View>
-                    <View style={STYLES.inputContainer}>
-                        <Icon3
-                            name="id-card-o"
-                            color={COLORS.light}
-                            size={20}
-                            style={STYLES.inputIcon_usual}
-                        />
-                        <TextInput placeholder="NIC Number" style={STYLES.input} keyboardType="numeric" />
-                    </View>
-                    <View style={STYLES.inputContainer}>
-                        <Icon2
-                            name="weight"
-                            color={COLORS.light}
-                            size={20}
-                            style={STYLES.inputIcon_usual}
-                        />
-                        <TextInput placeholder="Weight (Kg)" style={STYLES.input} keyboardType="numeric" />
-                    </View>
-                    <View style={STYLES.inputContainer}>
-                        <Icon2
-                            name="heart-multiple-outline"
-                            color={COLORS.light}
-                            size={20}
-                            style={STYLES.inputIcon_usual}
-                        />
-                        <TextInput placeholder="Health Condition" style={STYLES.input} />
                     </View>
                     <View style={STYLES.inputContainer}>
                         <View>
@@ -181,7 +196,7 @@ const SignUpScreen = ({ navigation }) => {
                                 setValue={setValue}
                                 setItems={setItems}
                                 style={{
-                                    width: '40%',
+                                    width: '34%',
                                     color: COLORS.light,
                                     // paddingLeft: 0,
                                     borderColor: COLORS.light,
@@ -195,13 +210,82 @@ const SignUpScreen = ({ navigation }) => {
                         </View>
                     </View>
                     <View style={STYLES.inputContainer}>
+                        <Icon3
+                            name="id-card-o"
+                            color={COLORS.light}
+                            size={20}
+                            style={STYLES.inputIcon_usual}
+                        />
+                        <TextInput placeholder="NIC Number" style={STYLES.input} keyboardType="numeric" onChangeText={newText => setNIC(newText)} defaultValue={NIC} />
+                    </View>
+                    <View style={STYLES.inputContainer}>
+                        <Icon2
+                            name="weight"
+                            color={COLORS.light}
+                            size={20}
+                            style={STYLES.inputIcon_usual}
+                        />
+                        <TextInput placeholder="Weight (Kg)" style={STYLES.input} keyboardType="numeric" onChangeText={newText => setWeight(newText)} defaultValue={weight} />
+                    </View>
+                    <View style={STYLES.inputContainer}>
+                        <Icon3
+                            name="address-book-o"
+                            color={COLORS.light}
+                            size={20}
+                            style={STYLES.inputIcon_usual}
+                        />
+                        <TextInput placeholder="Address" style={STYLES.input} onChangeText={newText => setAddress(newText)} defaultValue={address} />
+                    </View>
+                    <View style={STYLES.inputContainer}>
+                        <Icon3
+                            name="mobile"
+                            color={COLORS.light}
+                            size={20}
+                            style={STYLES.inputIcon_usual}
+                        />
+                        <TextInput placeholder="Mobile Number" style={STYLES.input} keyboardType="numeric" onChangeText={newText => setMobileNumber(newText)} defaultValue={mobileNumber} />
+                    </View>
+                    <View style={STYLES.inputContainer}>
+                        <View>
+                            <Icon2
+                                name="heart-multiple-outline"
+                                color={COLORS.light}
+                                size={20}
+                                style={STYLES.inputIcon_blood}
+                            />
+                            <Text style={STYLES.formLabel}>Health Condition</Text>
+                        </View>
+                        <View style={{ marginLeft: 20 }}>
+                            <DropDownPicker
+                                open={openH}
+                                value={valueH}
+                                items={itemsH}
+                                setOpen={setOpenH}
+                                setValue={setValueH}
+                                setItems={setItemsH}
+                                style={{
+                                    width: '35%',
+                                    color: COLORS.light,
+                                    // paddingLeft: 0,
+                                    borderColor: COLORS.light,
+                                    borderBottomWidth: 1,
+                                    flex: 1,
+                                    fontSize: 18,
+                                    backgroundColor: COLORS.primary
+                                }}
+                                listMode="SCROLLVIEW"
+                            />
+                        </View>
+                    </View>
+
+                    <View style={STYLES.inputContainer}>
                         <Icon2
                             name="hospital-box-outline"
                             color={COLORS.light}
                             size={20}
                             style={STYLES.inputIcon_usual}
                         />
-                        <TextInput placeholder="City" style={STYLES.input} />
+                        <TextInput placeholder="City" style={STYLES.input} onChangeText={newText => setCity(newText)} defaultValue={city} />
                     </View>
                     <View style={STYLES.inputContainer}>
                         <Icon4
@@ -210,7 +294,7 @@ const SignUpScreen = ({ navigation }) => {
                             size={20}
                             style={STYLES.inputIcon_usual}
                         />
-                        <TextInput placeholder="District" style={STYLES.input} />
+                        <TextInput placeholder="District" style={STYLES.input} onChangeText={newText => setDistrict(newText)} defaultValue={district} />
                     </View>
 
                     <View style={STYLES.inputContainer}>
@@ -220,7 +304,7 @@ const SignUpScreen = ({ navigation }) => {
                             size={20}
                             style={STYLES.inputIcon_usual}
                         />
-                        <TextInput placeholder="Email" style={STYLES.input} />
+                        <TextInput placeholder="Email" style={STYLES.input} onChangeText={newText => setEmail(newText)} defaultValue={email} />
                     </View>
                     <View style={STYLES.inputContainer}>
                         <Icon
@@ -233,13 +317,17 @@ const SignUpScreen = ({ navigation }) => {
                             placeholder="Password"
                             style={STYLES.input}
                             secureTextEntry
+                            onChangeText={newText => setPassword(newText)} defaultValue={password}
                         />
                     </View>
 
 
                     <View>
-                        <MainButton style={{ color: '#fff', fontWeight: 'bold', fontSize: 18 }}
-                            onPress={() => { navigation.navigate('SignIn') }}
+                        <MainButton
+                            style={{ color: '#fff', fontWeight: 'bold', fontSize: 18 }}
+                            onPress={() => {
+                                checkNewUser();
+                            }}
                             title="Sign Up"
                         />
                     </View>
@@ -255,7 +343,10 @@ const SignUpScreen = ({ navigation }) => {
                     <Text style={{ color: COLORS.light, fontWeight: 'bold' }}>
                         Already have an account ?
                     </Text>
-                    <TouchableOpacity onPress={() => navigation.navigate('SignIn')}>
+                    <TouchableOpacity onPress={() => {
+                        setGoBack(true);
+                        navigation.navigate('SignIn');
+                    }}>
                         <Text style={{ color: COLORS.primary, fontWeight: 'bold' }}> Sign in
                         </Text>
                     </TouchableOpacity>

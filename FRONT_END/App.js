@@ -9,18 +9,24 @@ import SignUpScreen from './app/src/screens/SignUpScreen';
 import HomeScreen from './app/src/screens/HomeScreen';
 import EventAddScreen from './app/src/screens/EventAddScreen';
 
+import UserContextProvider from './app/src/context/userContext';
+
 const Stack = createStackNavigator();
 export default function App() {
   return (
-    <NavigationContainer>
-      <Stack.Navigator screenOptions={{ header: () => null }}>
-        <Stack.Screen name="Splash" component={SplashScreen} />
-        <Stack.Screen name="Welcome" component={WelcomeScreen} />
-        <Stack.Screen name="SignIn" component={SignInScreen} />
-        <Stack.Screen name="SignUp" component={SignUpScreen} />
-        <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="EventAdd" component={EventAddScreen} />
-      </Stack.Navigator>
-    </NavigationContainer>
+
+    <UserContextProvider>
+      <NavigationContainer>
+        <Stack.Navigator screenOptions={{ header: () => null }}>
+          {/* <Stack.Screen name="Splash" component={SplashScreen} />
+          <Stack.Screen name="Welcome" component={WelcomeScreen} /> */}
+          <Stack.Screen name="SignIn" component={SignInScreen} />
+          <Stack.Screen name="SignUp" component={SignUpScreen} />
+          <Stack.Screen name="Home" component={HomeScreen} />
+          <Stack.Screen name="EventAdd" component={EventAddScreen} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </UserContextProvider>
+
   );
 }

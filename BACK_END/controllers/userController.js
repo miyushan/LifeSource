@@ -6,7 +6,7 @@ const User = require('../models/userModel')
 // @route       GET /api/users
 // @access      Private
 const getUsers = asyncHandler(async (req, res) => {
-    console.log('hello')
+    // console.log('hello')
     const users = await User.find()
 
     res.status(200).json({ users })
@@ -26,14 +26,20 @@ const registerUser = asyncHandler(async (req, res) => {
     }
 
     const user = await User.create({
-        name: req.body.name,
+        NIC: req.body.NIC,
+        userName: req.body.userName,
+        fullName: req.body.fullName,
         dateOfBirth: req.body.dateOfBirth,
-        weight: req.body.weight,
-        healthCondition: req.body.healthCondition,
         bloodGroup: req.body.bloodGroup,
-        town: req.body.town,
+        weight: req.body.weight,
+        address: req.body.address,
+        mobileNumber: req.body.mobileNumber,
+        healthCondition: req.body.healthCondition,
+        city: req.body.city,
         district: req.body.district,
-        password: req.body.password
+        email: req.body.email,
+        password: req.body.password,
+        userRole: req.body.userRole,
     })
     res.status(200).json({ user })
 })
