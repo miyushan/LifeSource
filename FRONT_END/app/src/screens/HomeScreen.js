@@ -17,7 +17,7 @@ const HomeScreen = ({ navigation }) => {
                 {/* <Header /> */}
 
                 <View style={{
-                    // alignItems: 'flex-start',
+                    justifyContent: 'space-evenly',
                     paddingHorizontal: 20,
                     marginTop: 40,
                     height: 245,
