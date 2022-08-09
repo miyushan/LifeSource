@@ -13,8 +13,6 @@ const getUsers = asyncHandler(async (req, res) => {
 
 
 
-
-
 // @desc        Register users
 // @route       POST /api/users
 // @access      Private
