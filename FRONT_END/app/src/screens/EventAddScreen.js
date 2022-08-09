@@ -17,21 +17,15 @@ import Header from '../components/header';
 
 const EventAddScreen = ({ navigation }) => {
 
-    const [userName, setUserName] = useState('');
-    const [fullName, setFullName] = useState('');
-    const [dateOfBirth, setDateOfBirth] = useState('');
-    const [weight, setWeight] = useState('');
-    const [healthCondition, setHealthCondition] = useState('');
-    const [bloodGroup, setBloodGroup] = useState('');
-    const [city, setCity] = useState('');
-    const [district, setDistrict] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const [oName, setOrganizerUserName] = useState('');
+    const [oFullName, setOrganizerFullName] = useState('');
+    const [oMobile, setOrganizerMobile] = useState('');
+    const [eDate, setEventDate] = useState('');
+    const [eTime, setEventTime] = useState('');
+    const [eDistrict, setEventDistrict] = useState('');
+    const [eLocation, setEventLocation] = useState('');
+    const [nHospital, setNearestHospital] = useState('');
 
-
-    // user confirmation
-    const [users, setUsers] = useState([]);
-    const [isPrevUser, setIsPrevUser] = useState(false);
 
     //date picker
     const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
@@ -46,21 +40,7 @@ const EventAddScreen = ({ navigation }) => {
         hideDatePicker();
     };
 
-    // dropdown for choose blood group
-    const [open, setOpen] = useState(false);
-    const [value, setValue] = useState('BPos');
-    const [items, setItems] = useState([
-        { label: 'B+', value: 'BPos' },
-        { label: 'B-', value: 'BNeg' },
-        { label: 'A+', value: 'APos' },
-        { label: 'A-', value: 'ANeg' },
-        { label: 'O+', value: 'OPos' },
-        { label: 'O-', value: 'ONeg' },
-        { label: 'AB+', value: 'ABPos' },
-        { label: 'AB-', value: 'ABNeg' },
-    ]);
-
-
+    
 
 
     useEffect(() => {
@@ -92,10 +72,10 @@ const EventAddScreen = ({ navigation }) => {
 
                 <View style={{ marginTop: 70 }}>
                     <Text style={{ fontSize: 27, fontWeight: 'bold', color: COLORS.dark }}>
-                        Welcome Back,
+                        Add Event
                     </Text>
                     <Text style={{ fontSize: 19, fontWeight: 'bold', color: COLORS.light }}>
-                        Sign up to continue
+                        Fill the form to add event
                     </Text>
                 </View>
 
@@ -108,7 +88,7 @@ const EventAddScreen = ({ navigation }) => {
                             size={20}
                             style={STYLES.inputIcon_usual}
                         />
-                        <TextInput placeholder="Username" style={STYLES.input} />
+                        <TextInput placeholder="Organizer Username" style={STYLES.input} />
                     </View>
                     <View style={STYLES.inputContainer}>
                         <Icon
@@ -117,7 +97,16 @@ const EventAddScreen = ({ navigation }) => {
                             size={20}
                             style={STYLES.inputIcon_usual}
                         />
-                        <TextInput placeholder="Full Name" style={STYLES.input} />
+                        <TextInput placeholder="Organizer's Full Name" style={STYLES.input} />
+                    </View>
+                    <View style={STYLES.inputContainer}>
+                        <Icon
+                            name="mobile-friendly"
+                            color={COLORS.light}
+                            size={20}
+                            style={STYLES.inputIcon_usual}
+                        />
+                        <TextInput placeholder="organizer's Mobile Number" style={STYLES.input} />
                     </View>
                     <View style={STYLES.inputContainer}>
                         <View>
@@ -127,7 +116,7 @@ const EventAddScreen = ({ navigation }) => {
                                 size={20}
                                 style={STYLES.inputIcon_blood}
                             />
-                            <Text style={STYLES.formLabel}>Date of Birth</Text>
+                            <Text style={STYLES.formLabel}>Event date  </Text>
                         </View>
                         <Button onPress={showDatePicker} title="Select"></Button>
                         <DateTimePickerModal
@@ -146,63 +135,49 @@ const EventAddScreen = ({ navigation }) => {
                         />
                     </View>
                     <View style={STYLES.inputContainer}>
-                        <Icon3
-                            name="id-card-o"
-                            color={COLORS.light}
-                            size={20}
-                            style={STYLES.inputIcon_usual}
-                        />
-                        <TextInput placeholder="NIC Number" style={STYLES.input} keyboardType="numeric" />
-                    </View>
-                    <View style={STYLES.inputContainer}>
-                        <Icon2
-                            name="weight"
-                            color={COLORS.light}
-                            size={20}
-                            style={STYLES.inputIcon_usual}
-                        />
-                        <TextInput placeholder="Weight (Kg)" style={STYLES.input} keyboardType="numeric" />
-                    </View>
-                    <View style={STYLES.inputContainer}>
-                        <Icon2
-                            name="heart-multiple-outline"
-                            color={COLORS.light}
-                            size={20}
-                            style={STYLES.inputIcon_usual}
-                        />
-                        <TextInput placeholder="Health Condition" style={STYLES.input} />
-                    </View>
-                    <View style={STYLES.inputContainer}>
                         <View>
-                            <Icon2
-                                name="blood-bag"
+                            <Icon
+                                name="access-time"
                                 color={COLORS.light}
                                 size={20}
                                 style={STYLES.inputIcon_blood}
                             />
-                            <Text style={STYLES.formLabel}>Blood Group</Text>
+                            <Text style={STYLES.formLabel}>Event Start Time  </Text>
                         </View>
-                        <View style={{ marginLeft: 20 }}>
-                            <DropDownPicker
-                                open={open}
-                                value={value}
-                                items={items}
-                                setOpen={setOpen}
-                                setValue={setValue}
-                                setItems={setItems}
-                                style={{
-                                    width: '40%',
-                                    color: COLORS.light,
-                                    // paddingLeft: 0,
-                                    borderColor: COLORS.light,
-                                    borderBottomWidth: 1,
-                                    flex: 1,
-                                    fontSize: 18,
-                                    backgroundColor: COLORS.primary
-                                }}
-                                listMode="SCROLLVIEW"
-                            />
-                        </View>
+                        <Button onPress={showDatePicker} title="Select"></Button>
+                        <DateTimePickerModal
+                            isVisible={isDatePickerVisible}
+                            mode="time"
+                            onConfirm={handleConfirm}
+                            onCancel={hideDatePicker}
+                            style={{
+                                backgroundColor: COLORS.primary,
+                                // height: 50,
+                                // borderRadius: 5,
+                                // justifyContent: 'center',
+                                // alignItems: 'center',
+                                // marginTop: 50,
+                            }}
+                        />
+                    </View>
+                
+                    <View style={STYLES.inputContainer}>
+                        <Icon4
+                            name="location-outline"
+                            color={COLORS.light}
+                            size={20}
+                            style={STYLES.inputIcon_usual}
+                        />
+                        <TextInput placeholder="Event District" style={STYLES.input} />
+                    </View>
+                    <View style={STYLES.inputContainer}>
+                        <Icon4
+                            name="location"
+                            color={COLORS.light}
+                            size={20}
+                            style={STYLES.inputIcon_usual}
+                        />
+                        <TextInput placeholder="Event Location" style={STYLES.input} />
                     </View>
                     <View style={STYLES.inputContainer}>
                         <Icon2
@@ -211,46 +186,13 @@ const EventAddScreen = ({ navigation }) => {
                             size={20}
                             style={STYLES.inputIcon_usual}
                         />
-                        <TextInput placeholder="City" style={STYLES.input} />
+                        <TextInput placeholder="Nearest Hospital from Event location" style={STYLES.input} />
                     </View>
-                    <View style={STYLES.inputContainer}>
-                        <Icon4
-                            name="location-outline"
-                            color={COLORS.light}
-                            size={20}
-                            style={STYLES.inputIcon_usual}
-                        />
-                        <TextInput placeholder="District" style={STYLES.input} />
-                    </View>
-
-                    <View style={STYLES.inputContainer}>
-                        <Icon
-                            name="mail-outline"
-                            color={COLORS.light}
-                            size={20}
-                            style={STYLES.inputIcon_usual}
-                        />
-                        <TextInput placeholder="Email" style={STYLES.input} />
-                    </View>
-                    <View style={STYLES.inputContainer}>
-                        <Icon
-                            name="lock-outline"
-                            color={COLORS.light}
-                            size={20}
-                            style={STYLES.inputIcon_usual}
-                        />
-                        <TextInput
-                            placeholder="Password"
-                            style={STYLES.input}
-                            secureTextEntry
-                        />
-                    </View>
-
 
                     <View>
                         <MainButton style={{ color: '#fff', fontWeight: 'bold', fontSize: 18 }}
-                            onPress={() => { navigation.navigate('SignIn') }}
-                            title="Sign Up"
+                            onPress={() => { navigation.navigate('AddEvent') }}
+                            title="Add Event"
                         />
                     </View>
                 </View>
@@ -262,13 +204,7 @@ const EventAddScreen = ({ navigation }) => {
                     marginTop: 40,
                     marginBottom: 20,
                 }}>
-                    <Text style={{ color: COLORS.light, fontWeight: 'bold' }}>
-                        Already have an account ?
-                    </Text>
-                    <TouchableOpacity onPress={() => navigation.navigate('SignIn')}>
-                        <Text style={{ color: COLORS.primary, fontWeight: 'bold' }}> Sign in
-                        </Text>
-                    </TouchableOpacity>
+                  
                 </View>
             </ScrollView>
         </SafeAreaView>
