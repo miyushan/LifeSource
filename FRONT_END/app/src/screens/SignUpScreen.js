@@ -1,7 +1,6 @@
 import 'react-native-gesture-handler';
 import React, { useEffect, useState } from 'react';
 import { SafeAreaView, View, Text, TextInput, Image, Button } from 'react-native';
-import axios from 'axios';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import DropDownPicker from 'react-native-dropdown-picker';
 
@@ -65,23 +64,14 @@ const SignUpScreen = ({ navigation }) => {
 
     useEffect(() => {
 
-
-        console.log('start fetching');
-
-        axios.get('https://localhost:8000/api/users', {
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json',
-            }
-        })
-            .then(res => {
-                setUsers(res.data);
-            }).catch(err => {
-                console.log(err);
+        fetch('https://localhost:8000/api/users')
+            .then((response) => response.json())
+            .then((json) => {
+                return json.movies;
+            })
+            .catch((error) => {
+                console.error(error);
             });
-
-        console.log('start2 fetching');
-
     }, []);
 
     return (
