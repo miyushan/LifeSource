@@ -6,6 +6,7 @@ const User = require('../models/userModel')
 // @route       GET /api/users
 // @access      Private
 const getUsers = asyncHandler(async (req, res) => {
+    console.log('hello')
     const users = await User.find()
 
     res.status(200).json({ users })
@@ -19,7 +20,7 @@ const getUsers = asyncHandler(async (req, res) => {
 // @route       POST /api/users
 // @access      Private
 const registerUser = asyncHandler(async (req, res) => {
-    if(!req.body) {
+    if (!req.body) {
         res.status(400)
         throw new Error('Please add your data')
     }
@@ -47,7 +48,7 @@ const registerUser = asyncHandler(async (req, res) => {
 const updateUser = asyncHandler(async (req, res) => {
     const user = await User.findByIdAndUpdate(req.params.id)
 
-    if(!user) {
+    if (!user) {
         res.status(404)
         throw new Error('User not found')
     }
@@ -69,7 +70,7 @@ const updateUser = asyncHandler(async (req, res) => {
 const deleteUser = asyncHandler(async (req, res) => {
     const user = await User.findByIdAndUpdate(req.params.id)
 
-    if(!user) {
+    if (!user) {
         res.status(404)
         throw new Error('User not found')
     }
