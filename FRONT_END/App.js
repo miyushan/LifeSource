@@ -18,11 +18,11 @@ export default function App() {
     <UserContextProvider>
       <NavigationContainer>
         <Stack.Navigator screenOptions={{ header: () => null }}>
-          {/* <Stack.Screen name="Splash" component={SplashScreen} />
-          <Stack.Screen name="Welcome" component={WelcomeScreen} /> */}
+          <Stack.Screen name="Splash" component={SplashScreen} />
+          <Stack.Screen name="Welcome" component={WelcomeScreen} />
           <Stack.Screen name="SignIn" component={SignInScreen} />
           <Stack.Screen name="SignUp" component={SignUpScreen} />
-          <Stack.Screen name="Home" component={HomeScreen} />
+          <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }} />
           <Stack.Screen name="EventAdd" component={EventAddScreen} />
         </Stack.Navigator>
       </NavigationContainer>

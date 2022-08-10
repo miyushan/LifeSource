@@ -40,29 +40,42 @@ const EventAddScreen = ({ navigation }) => {
         hideDatePicker();
     };
 
-    
+    //time picker
+    const [isTimePickerVisible, setTimePickerVisibility] = useState(false);
+    const showTimePicker = () => {
+        setDatePickerVisibility(true);
+    };
+    const hideTimePicker = () => {
+        setDatePickerVisibility(false);
+    };
+    const handleConfirmTime = (date) => {
+        // console.warn("A date has been picked: ", date);
+        hideDatePicker();
+    };
 
 
-    useEffect(() => {
 
 
-        console.log('start fetching');
+    // useEffect(() => {
 
-        axios.get('https://localhost:8000/api/users', {
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json',
-            }
-        })
-            .then(res => {
-                setUsers(res.data);
-            }).catch(err => {
-                console.log(err);
-            });
 
-        console.log('start2 fetching');
+    //     console.log('start fetching');
 
-    }, []);
+    //     axios.get('https://localhost:8000/api/users', {
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //             'Accept': 'application/json',
+    //         }
+    //     })
+    //         .then(res => {
+    //             setUsers(res.data);
+    //         }).catch(err => {
+    //             console.log(err);
+    //         });
+
+    //     console.log('start2 fetching');
+
+    // }, []);
 
     return (
         <SafeAreaView style={{ paddingHorizontal: 20, flex: 1, backgroundColor: COLORS.white }}>
@@ -134,7 +147,7 @@ const EventAddScreen = ({ navigation }) => {
                             }}
                         />
                     </View>
-                    <View style={STYLES.inputContainer}>
+                    {/* <View style={STYLES.inputContainer}>
                         <View>
                             <Icon
                                 name="access-time"
@@ -144,12 +157,12 @@ const EventAddScreen = ({ navigation }) => {
                             />
                             <Text style={STYLES.formLabel}>Event Start Time  </Text>
                         </View>
-                        <Button onPress={showDatePicker} title="Select"></Button>
+                        <Button onPress={showTimePicker} title="Select"></Button>
                         <DateTimePickerModal
-                            isVisible={isDatePickerVisible}
+                            isVisible={isTimePickerVisible}
                             mode="time"
-                            onConfirm={handleConfirm}
-                            onCancel={hideDatePicker}
+                            onConfirm={handleConfirmTime}
+                            onCancel={hideTimePicker}
                             style={{
                                 backgroundColor: COLORS.primary,
                                 // height: 50,
@@ -159,8 +172,8 @@ const EventAddScreen = ({ navigation }) => {
                                 // marginTop: 50,
                             }}
                         />
-                    </View>
-                
+                    </View> */}
+
                     <View style={STYLES.inputContainer}>
                         <Icon4
                             name="location-outline"
@@ -191,7 +204,7 @@ const EventAddScreen = ({ navigation }) => {
 
                     <View>
                         <MainButton style={{ color: '#fff', fontWeight: 'bold', fontSize: 18 }}
-                            onPress={() => { navigation.navigate('AddEvent') }}
+                            // onPress={() => { navigation.navigate('AddEvent') }}
                             title="Add Event"
                         />
                     </View>
@@ -204,7 +217,7 @@ const EventAddScreen = ({ navigation }) => {
                     marginTop: 40,
                     marginBottom: 20,
                 }}>
-                  
+
                 </View>
             </ScrollView>
         </SafeAreaView>

@@ -7,6 +7,7 @@ import Icon5 from 'react-native-vector-icons/AntDesign';
 import COLORS from '../consts/color';
 import STYLES from '../styles/index';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
+import MainButton from '../components/mainButton';
 import Header from '../components/header';
 
 const HomeScreen = ({ navigation }) => {
@@ -53,6 +54,14 @@ const HomeScreen = ({ navigation }) => {
                     </View>
 
                 </View>
+                <View>
+                    <MainButton
+                        style={{ color: '#fff', fontWeight: 'bold', fontSize: 18 }}
+                        onPress={() => {
+                            navigation.navigate('EventAdd');
+                        }}
+                        title="Post an Event"
+                    /></View>
             </ScrollView>
         </SafeAreaView>
     );
