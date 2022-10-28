@@ -6,22 +6,22 @@ git commit -m "YOUR MESSAGE"				//complete the changing process by giving a comm
 
 ***branch commands
 git branch 						//check existing branches
-git branch NEWBRANCH					//add a new branch
-git checkout ANYBRANCH					//change branch
-<<<<<<< HEAD
-=======
-git branch -d ANYBRANCH					//delete a local branch
-git push origin --delete ANYBRANCH			//delete a remote branch
->>>>>>> main
+git branch NEW_BRANCH					//add a new branch
+git checkout ANY_BRANCH					//change branch
+git branch -d ANY_BRANCH				//delete a local branch
+git push origin --delete ANY_BRANCH			//delete a remote branch
 
 
 ***steps to follow when you want to grab the work in different branch and share it to main branch
 git checkout main					//go to main branch
-git merge ANYBRANCH					//copy a branch to main branch
+git merge ANY_BRANCH					//copy a branch to main branch
 
 
 ***updating the remote repo
-	(consider: if you haven't grap the updated remote repo data, you should grab that before doing a push)
-	git pull					//grab updated remote repo
+(consider: if you haven't grap the updated remote repo data, you should grab that before doing a push)
+git pull						//grab updated remote repo
 git push						//push to remote repo from main branch
-git push origin ANYBRANCH				//push to remote repo from different branch
+git push origin ANY_BRANCH				//push to remote repo from different branch
+
+
+git rm -r --cached FILE_NAME				//remove a file from git cache
