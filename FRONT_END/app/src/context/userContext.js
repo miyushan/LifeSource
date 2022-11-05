@@ -8,7 +8,7 @@ function UserContextProvider(props) {
     const [users, setUsers] = useState([]);
 
     useEffect(() => {
-        axios.get('http://192.168.8.134:8000/api/users')
+        axios.get('http://10.102.10.212:8000/api/users')
             .then(res => {
                 setUsers(res.data);
             })

@@ -92,7 +92,7 @@ const SignUpScreen = ({ navigation }) => {
 
             if (isNewNumber) {
                 navigation.navigate('SignIn')
-                // axios.post('http://192.168.8.134:8000/api/users', {
+                // axios.post('http://10.102.10.212:8000/api/users', {
                 //     contactNumber: contactNumber,
                 //     name: branchName,
                 //     address: address,
